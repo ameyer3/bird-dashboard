@@ -1,5 +1,5 @@
 class BirdsController < ApplicationController
-  before_action :set_bird, only: %i[ show edit update]
+  before_action :set_bird, only: %i[ show edit update destroy]
 
   def index
     @birds = Bird.all # @ = instance variable, hands it to view automatically
@@ -30,6 +30,11 @@ class BirdsController < ApplicationController
     else
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    @bird.destroy
+    redirect_to birds_path
   end
     
   private

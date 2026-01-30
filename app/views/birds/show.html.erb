@@ -2,3 +2,5 @@
 
 <%= link_to "Back", birds_path %>
 <%= link_to "Edit", edit_bird_path(@bird)%>
+<!--A form with a button with text delete, makes a delete req, after confirming-->
+<%= button_to "Delete", @bird, method: :delete, data: { turbo_confirm: "Are you sure?" }%>
