@@ -1,15 +1,4 @@
 <h1>New Bird</h1>
 
-<!--Handles CSRF token-->
-<!--We send the new bird model, so it knows it's POST-->
-<%= form_with model: @bird do |form| %>
-<div>
-<%= form.label :name%>
-<%= form.text_field :name %>
-</div>
-<div>
-<%= form.submit%><!-- adjusts the text on button accordingly-->
-</div>
-
-<%end%>
+<%= render "form", bird: @bird%>
 <%= link_to "Cancel", birds_path%>

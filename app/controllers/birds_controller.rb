@@ -1,10 +1,11 @@
 class BirdsController < ApplicationController
+  before_action :set_bird, only: %i[ show edit update]
+
   def index
-    @birds = Bird.all
+    @birds = Bird.all # @ = instance variable, hands it to view automatically
   end
 
   def show
-    @bird = Bird.find(params[:id])
   end
 
   def new
@@ -13,14 +14,32 @@ class BirdsController < ApplicationController
 
   def create
     @bird = Bird.new(bird_params)
-    if @bird.save # validate, save if success
-      redirect_to @bird
-    end # else, back to form with entered info
+    if @bird.save # validate, save if success, save returns bool, if i put bang! then it raises
+      redirect_to @bird # automatically goes to "show" of that bird
+    else
+      render :new, status: :unprocessable_entity
+    end
   end
 
+  def edit
+  end
+
+  def update
+    if @bird.update(bird_params)
+      redirect_to @bird
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+    
+  private
+    def set_bird
+      @bird = Bird.find(params[:id])
+    end
+
+      
   # This filters the incoming param and make sure there is bird array with param name
   # other obj are ignored
-  private
     def bird_params
       params.expect(bird: [ :name])
     end
