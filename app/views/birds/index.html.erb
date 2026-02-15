@@ -1,6 +1,7 @@
 <h1>Birds</h1>
 
-<%= link_to "New Bird", new_bird_path %>
+<%= link_to "New Bird", new_bird_path if authenticated? %>
+<%= link_to "Login", new_session_path unless authenticated? %>
 
 <div id="birds">
   <% @birds.each do |bird| %>
